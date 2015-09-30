@@ -1,3 +1,7 @@
 <h1> Welcome <%= current_user.name %> </h1>
 
+	<%= month_calendar do |date| %>
+	  <%= date %>
+	<% end %>
+
 <%= button_to "Log Out", destroy_user_session_path, :class => "button"  %>
