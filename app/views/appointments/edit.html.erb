@@ -1,6 +1,14 @@
 <h1>Editing Appointment</h1>
 
-<%= render 'form' %>
+	<%= form_for @appointment do |a|%>
+				<%= a.label :begin_at %>:
+				<%= a.datetime_select :begin_at %><br />
+				<%= a.label :end_at %>:
+				<%= a.datetime_select :end_at %><br />
+				<%= a.label :comment %>
+				<%= a.text_area :comment %>
+				<br>
+				<button type="submit" class="btn btn-primary">Update Appointment</button>
+<% end %>
 
-<%= link_to 'Show', @appointment %> |
-<%= link_to 'Back', appointments_path %>
+<%= link_to 'Back', aunthenticated_root_path %>
