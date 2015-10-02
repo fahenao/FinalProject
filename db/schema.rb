@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001152943) do
+ActiveRecord::Schema.define(version: 20151002143549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "appointments", force: :cascade do |t|
-    t.datetime "begin_at"
+    t.datetime "start_time"
     t.datetime "end_at"
     t.text     "comment"
     t.datetime "created_at", null: false
@@ -31,11 +31,28 @@ ActiveRecord::Schema.define(version: 20151001152943) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "clinics", force: :cascade do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "patients", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "fullname"
     t.string   "phone"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +71,7 @@ ActiveRecord::Schema.define(version: 20151001152943) do
     t.string   "name"
     t.string   "last_name"
     t.boolean  "admin",                  default: false
+    t.integer  "clinic_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

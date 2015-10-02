@@ -2,11 +2,12 @@ class UsersController < ApplicationController
 
 	def profile
 		@appointment = Appointment.new
-		@appointments_list = Appointment.all
 		@patient = Patient.new
+		@service = Service.new
+		@appointments_list = Appointment.all
 		@patients = Patient.all
+		@services = Service.all
 		@appointments = current_user.appointments
-
 		render :profile
 	end
 

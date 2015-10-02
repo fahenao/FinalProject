@@ -1,2 +1,22 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.creation_buttons button{
+  display: block;
+	margin-bottom: 10px;
+}
+
+.calendar_display td{
+	border: 1px solid #aaa;
+	border-radius: 4px;
+	height: 100px;
+	width: 100px;
+}
+
+.calendar_display th{
+	border: 1px solid black;
+}
+
+.calendar_display div {
+
+}

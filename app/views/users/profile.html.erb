@@ -2,37 +2,55 @@
 <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 <div class="container">
 	<div class="row">
-		<div class="col-lg-6">
-			<%= month_calendar do |date| %>
-			<%= date.strftime("%d") %>
-			<% end %>
+		<!--CALENDAR -->
+		<div class="calendar_display">
+			<div class="col-md-8">
+				<%= month_calendar events: @appointments_list do |date, appointments| %>
+				<% appointments.each do |appointment| %>
+	 			<div>
+	 				<%= @patients.find(appointment.patient_id).fullname %>
+					<%= date.strftime("%d") %>
+				</div>
+				<% end %>
+				<% end %>
+				</div>
 		</div>
-		<div class="appointments">
-			<div class="col-lg-6">
-				<br>
-
-				<!-- Button trigger modal patients -->
+		<!--CALENDAR -->
+		
+		<!--ASIDE/PROFILE -->
+		<div class="creation_buttons">
+			<div class="col-md-2">
+				<!-- Button trigger modal Patients -->
 				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalPatient">
-				  Create Patients
+				Create Patients
 				</button>
-
+				<!-- Button trigger modal Appointment -->
 				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAppointment">
-					Create Appointment
+				Create Appointment
 				</button>
-				<br>
-
-					<% @appointments_list.each do |a| %>
-					<p>
-						<%= a.begin_at.strftime("%a-%d / %I:%M") %>,	<%= a.comment %>
-						<%= link_to "Edit", edit_appointment_path(a.id) %>					
-						<%= link_to "Delete", appointment_destroy_path(a.id), method: :delete %>					
-					</p>
-					<% end %>
+				<!-- Button trigger modal Service -->
+				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalService">
+				Create Service
+				</button>
 			</div>
 		</div>
+		<!--Appointments list -->
+		<div class="col-md-2">
+			<% @appointments_list.each do |a| %>
+			<div class="list-group">
+				<li class="list-group-item">
+					<%= a.start_time.strftime("%a-%d / %I:%M") %>
+					<%= @patients.find(a.patient_id).fullname %>
+					<%= a.comment %>
+					<%= link_to "Edit", edit_appointment_path(a.id) %>
+					<%= link_to "Delete", appointment_destroy_path(a.id), method: :delete %>
+				</li>
+			</div>
+			<% end %>
+		</div>
+		<!--ASIDE_PROFILE_END -->
 	</div>
 </div>
-
 <!-- Form for new appointment -->
 <div class="modal fade" id="myModalAppointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
@@ -43,54 +61,80 @@
 			</div>
 			<div class="modal-body">
 				<%= form_for @appointment do |a|%>
-				<%= a.label :begin_at %>:
-				<%= a.datetime_select :begin_at %><br />
+				<%= a.label :start_time %>:
+				<%= a.datetime_select :start_time %><br />
 				<%= a.label :end_at %>:
 				<%= a.datetime_select :end_at %><br />
 				<%= a.label :comment %>
 				<%= a.text_area :comment %>
-
-				<h4>Existing patients</h4>
+				
+				<h4>Existing patients</h4>   <!-- Display existing patients-->
 				<%= a.select(:patient_id) do %>
-					<% @patients.each do |p| -%>
-					<%= content_tag(:option, p.fullname, value: p.id) %>
-					<% end %>
-					<% end %>
-
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Save Appointment</button>
-					</div>
-
+				<% @patients.each do |p| -%>
+				<%= content_tag(:option, p.fullname, value: p.id) %>
 				<% end %>
-				
-				
+				<% end %>
+				<h4>Services</h4>  <!-- Display existing services-->
+				<%= a.select(:user_id) do %>
+				<% @services.each do |s| -%>
+				<%= content_tag(:option, s.name, value: s.id) %>
+				<% end %>
+				<% end %>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save Appointment</button>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal Patients-->
+<div class="modal fade" id="myModalPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">New Patient</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_for @patient do |p|%>
+				<%= p.label :fullname %>:
+				<%= p.text_field :fullname %><br />
+				<%= p.label :phone %>:
+				<%= p.telephone_field :phone %><br />
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="input" class="btn btn-primary">Save Patient</button>
+				</div>
+				<% end %>
 			</div>
 		</div>
 	</div>
 </div>
 
-
-<!-- Modal Patients-->
-<div class="modal fade" id="myModalPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">New Patient</h4>
-      </div>
-      <div class="modal-body">
-        <%= form_for @patient do |p|%>
-        				<%= p.label :fullname %>:
-        				<%= p.text_field :fullname %><br />
-        				<%= p.label :phone %>:
-        				<%= p.telephone_field :phone %><br />
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="input" class="btn btn-primary">Save Patient</button>
-					      </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+<!-- Modal Services-->
+<div class="modal fade" id="myModalService" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">New Service</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_for @service do |p|%>
+				<%= p.label :name %>:
+				<%= p.text_field :name %><br />
+				<%= p.label :description %>:
+				<%= p.text_field :description %><br />
+				<%= p.label :price %>:
+				<%= p.number_field :price %><br />
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="input" class="btn btn-primary">Create Service</button>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
 </div>

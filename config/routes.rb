@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   delete '/appointments/destroy/:id' => 'appointments#destroy', as: 'appointment_destroy'
   resources :users
   resources :patients, only: [:create, :show, :edit, :update]
+  resources :services, only: [:create, :show, :edit, :update]
 
 end
