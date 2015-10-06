@@ -53,8 +53,9 @@ group :development, :test do
   gem 'quiet_assets' 
   gem 'awesome_print'
   gem 'devise'
+end
+
   gem 'rails_12factor', group: :production
 
   ruby "2.2.1"
-end
 
