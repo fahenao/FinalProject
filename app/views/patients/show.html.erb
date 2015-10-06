@@ -1,0 +1,14 @@
+<h1>Patient List</h1>
+
+<% @patients.each do |patient| %>
+<p>
+	<%= patient.fullname %>
+	<%= patient.phone	%>
+	<%= link_to "Edit", edit_patient_path(patient.id) %>
+</p>
+
+<% end %>
+
+<%= link_to 'Back', aunthenticated_root_path %>
+
+	

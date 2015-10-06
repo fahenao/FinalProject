@@ -1,3 +1,4 @@
 class Service < ActiveRecord::Base
-	belongs_to :user
+	has_many :appointment_services
+	has_many :appointments, through: :appointment_services
 end

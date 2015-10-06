@@ -10,10 +10,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :appointments, only: [:create, :edit, :update]
-  delete '/appointments/destroy/:id' => 'appointments#destroy', as: 'appointment_destroy'
-  resources :users
-  resources :patients, only: [:create, :show, :edit, :update]
-  resources :services, only: [:create, :show, :edit, :update]
+  resources :appointments
+  # delete '/appointments/destroy/:id' => 'appointments#destroy', as: 'appointment_destroy'
 
+  resources :users
+
+  resources :patients
+  #delete '/patients/destroy/:id' => 'patients#destroy', as: 'patient_destroy'
+  resources :services
 end

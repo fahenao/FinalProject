@@ -1,0 +1,12 @@
+<h1>Editing Patients</h1>
+
+	<%= form_for @patient do |p|%>
+				<%= p.label :fullname %>:
+				<%= p.text_field :fullname %><br />
+				<%= p.label :phone %>:
+				<%= p.text_field :phone %><br />
+				<button type="submit" class="btn btn-primary">Update Patient</button>
+<% end %>
+
+<%= link_to 'Dasboard', aunthenticated_root_path %>
+<%= link_to 'Back to edit', patients_path %>

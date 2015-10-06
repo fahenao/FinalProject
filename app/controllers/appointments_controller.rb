@@ -25,11 +25,9 @@ class AppointmentsController < ApplicationController
   def create
     @appointment = Appointment.new(appointment_params)
     @appointment.user_id = current_user.id
-    # @appointment.patient_id = Patient.find(params :patient_id)
-
-
     respond_to do |format|
       if @appointment.save
+        @appointment.appointment_services.create(service_id: params[:appointment_service][:service_id])
         format.html { redirect_to '/', notice: 'Appointment was successfully created.' }
         format.json { render :show, status: :created, location: @appointment }
       else
@@ -71,6 +69,6 @@ class AppointmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appointment_params
-      params.require(:appointment).permit(:start_time, :end_at, :comment, :patient_id)
+      params.require(:appointment).permit(:start_time, :end_time, :comment, :patient_id)
     end
 end

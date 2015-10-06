@@ -1,10 +1,10 @@
 <h1>Editing Appointment</h1>
 
 	<%= form_for @appointment do |a|%>
-				<%= a.label :begin_at %>:
-				<%= a.datetime_select :begin_at %><br />
-				<%= a.label :end_at %>:
-				<%= a.datetime_select :end_at %><br />
+				<%= a.label :start_time %>:
+				<%= a.datetime_select :start_time %><br />
+				<%= a.label :end_time %>:
+				<%= a.datetime_select :end_time %><br />
 				<%= a.label :comment %>
 				<%= a.text_area :comment %>
 				<br>

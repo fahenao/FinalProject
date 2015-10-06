@@ -1,0 +1,19 @@
+<h1>Service List</h1>
+
+<% @services.each do |service| %>
+<p>
+	Name: <%= service.name %> <br>
+	Price: <%= service.price %>
+	<p>
+		Description: <%= service.description	%>
+	</p>
+	<%= link_to "Edit", edit_service_path(service.id) %>
+	<%= link_to "Delete", service_path(service.id), method: :delete %>
+</p>
+<br>
+<br>
+<% end %>
+
+<%= link_to 'Back', aunthenticated_root_path %>
+
+

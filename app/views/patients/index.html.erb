@@ -1,0 +1,16 @@
+<h1>Patient List</h1>
+
+<% @patients.each do |patient| %>
+<p>
+	<%= patient.fullname %>
+	<%= patient.phone	%>
+	<%= link_to "Edit", edit_patient_path(patient.id) %>
+	<%= link_to "Delete", patient_path(patient.id), method: :delete %>
+</p>
+<% end %>
+
+
+<%= link_to 'New Patient', new_patient_path, method: :new %> <br>
+<%= link_to 'Back', aunthenticated_root_path %>
+
+
