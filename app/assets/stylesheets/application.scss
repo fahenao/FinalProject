@@ -1,6 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+#big_wrapper {
+  padding: 3%;
+}
+#rigth_wrapper {
+  padding-top: 2% 
+}
+
 .creation_buttons button{
 	margin-bottom: 10px;
 }
@@ -24,7 +31,6 @@
 	float: right;
 }
 
-////////// CALENDAR CSS //////////////
 .simple-calendar {
   table {
     -webkit-border-horizontal-spacing: 0px;
@@ -94,14 +100,14 @@
   .start-date {}
 
   .prev-month {
-    background: #DDD;
+    background: #A8B66A;
   }
   .next-month {
-    background: #DDD;
+    background: #A8B66A;
   }
   .current-month {}
 
   .has-events {
-  	background-color: #62ACBF;
+    background-color: #24B4B6;
   }
 }

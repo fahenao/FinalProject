@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :users
-
   devise_scope :user do
     authenticated :user do
       root 'users#profile', as: :aunthenticated_root
@@ -10,12 +8,13 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    get 'appointments/:date', to: 'appointments#show'
+  end
+  
+  devise_for :users
   resources :appointments
-  # delete '/appointments/destroy/:id' => 'appointments#destroy', as: 'appointment_destroy'
-
   resources :users
-
   resources :patients
-  #delete '/patients/destroy/:id' => 'patients#destroy', as: 'patient_destroy'
   resources :services
 end

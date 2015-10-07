@@ -6,7 +6,6 @@ class PatientsController < ApplicationController
   end
 
   def edit
-    @patient = Patient.new
   end
 
 	def create
@@ -21,7 +20,7 @@ class PatientsController < ApplicationController
   def update
     respond_to do |format|
       if @patient.update(patient_params)
-        format.html { redirect_to '/', notice: 'Patient was successfully updated.' }
+        format.html { redirect_to patients_path, notice: 'Patient was successfully updated.' }
         format.json { render :show, status: :ok, location: @appointment }
       else
         format.html { render :edit }

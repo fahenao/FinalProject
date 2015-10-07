@@ -1,77 +1,81 @@
-<h1> Welcome <%= current_user.name %> <%= current_user.last_name %> </h1>
-<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-<div class="container">
-	<div class="row">
-		<!--BEGIN-CALENDAR -->
-		<div class="col-md-8">
-			<div class="calendar_display">
-				
-				<%= month_calendar events: @appointments do |date, appointment| %>
-				<%= date.strftime("%d") %>
-				<% appointment.each do |a| %>
-				<div>
-					<%= a.comment %>
-				</div>
-				<% end %>
-				<% end %>
-			</div>
-		</div>
-		<!--END-CALENDAR -->
-		
-		<!--ASIDE/PROFILE -->
-		<div class="col-md-4">
-			<div class="creation_buttons"> <!--CLOSGING CREATION BUTTONS -->
-				<div class="col-md-8-fluid">
-
-					<!-- Button trigger modal Appointment -->
-					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAppointment">
-					Create Appointment
-					</button>
-
-					<!-- Button trigger modal CREATEPATIENTS -->
-					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalPatient">
-					Create Patients
-					</button>
-
-					<!-- Button trigger modal Service -->
-					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalService">
-					Create Service
-					</button>
-					<%= link_to "Patients List", patients_path %> <br>
-					<%= link_to "Services List", services_path %>
-					</div>
-
+<div id="big_wrapper">
+	<div class="container">
+		<div class="row">
+			<!--BEGIN-CALENDAR -->
+			<div class="col-md-8">
+				<div class="calendar_display">
 					
-				</div> <!--CLOSGING CREATION BUTTONS -->
-				<!--Appointments list -->
-				<div class="col-md-12-left">
-					<% @appointments.each do |a| %>
-					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-						<div class="panel panel-default">
-							<div class="panel-heading" role="tab" id="headingOne">
-								<h4 class="panel-title">
-								<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-									<%= @patients.find(a.patient_id).fullname %>, <%= a.start_time.strftime("%B""/""%d") %>
-								</a>
-								<div style="float: right;">
-									<%= link_to "Edit", edit_appointment_path(a.id) %>
-									<%= link_to "Delete", appointment_path(a.id), method: :delete %>
-								</div>
-								</h4>
-							</div>
-							<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-								<div class="panel-body">
-									
-									<%= a.comment %>
-								</div>
-							</div>
-						</div>
+					<%= month_calendar events: @appointments do |date, appointment| %>
+					<div class="hidden" id="hidden_date">
+						<%= date %>					
+					</div>
+					<%= date.strftime("%d") %>
+					<% appointment.each do |a| %>
+					<div>
+						<%= a.comment %>
 					</div>
 					<% end %>
+					<% end %>
 				</div>
-				<!--ASIDE_PROFILE_END -->
+			</div>
+			<!--END-CALENDAR -->
+
+			<!--ASIDE/PROFILE -->
+			<div id="rigth_wrapper">
+				<div class="col-md-4">
+					<div class="creation_buttons"> <!--CLOSGING CREATION BUTTONS -->
+						<div class="col-md-8-fluid">
+
+							<!-- Button trigger modal Appointment -->
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAppointment">
+							Create Appointment
+							</button>
+
+							<!-- Button trigger modal CREATEPATIENTS -->
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalPatient">
+							Create Patients
+							</button>
+
+							<!-- Button trigger modal Service -->
+							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalService">
+							Create Service
+							</button>
+							
+							</div>
+
+							
+						</div> <!--CLOSGING CREATION BUTTONS -->
+						<!--Appointments list -->
+					<div class="col-md-12-left">
+						<% @appointments.each do |a| %>
+							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab" id="headingOne">
+										<h4 class="panel-title">
+										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+											<%= @patients.find(a.patient_id).fullname %>, <%= a.start_time.strftime("%B""/""%d") %>
+										</a>
+										<div style="float: right;">
+											<%= link_to "Edit", edit_appointment_path(a.id) %>
+											<%= link_to "Delete", appointment_path(a.id), method: :delete %>
+										</div>
+										</h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+										<div class="panel-body">
+											<%= a.comment %>
+										</div>
+									</div>
+								</div>
+							</div>
+						<% end %>
+					</div>
+					<!--ASIDE_PROFILE_END -->
+				</div>
 			</div>
 		</div>
+	</div>
+</div>
 		<!-- MODALS/MODALS/MODALS -->
 		<!-- Form for new appointment -->
 		<div class="modal fade" id="myModalAppointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
