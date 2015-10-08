@@ -1,11 +1,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+html { 
+  font-family: Helvetica Neue, Helvetica,Arial,sans-serif; 
+}
+
+
 #big_wrapper {
   padding: 3%;
+
 }
 #rigth_wrapper {
-  padding-top: 2% 
+  padding-top: 2%;
 }
 
 .creation_buttons button{
@@ -24,7 +30,7 @@
 }
 
 .calendar_display div {
-
+  
 }
 
 .list_buttons_right {
@@ -91,11 +97,13 @@
   .wday-6 {}
 
   .today {
-    background: #FFFFC0
+    background: #579eff;
   }
 
   .past {}
-  .future {}
+  .future {
+    
+  }
 
   .start-date {}
 

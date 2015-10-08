@@ -3,12 +3,13 @@ class ServicesController < ApplicationController
 
   def index
     @services = Service.all
+    @service = Service.new
   end
 
   def create
     @service = Service.new(service_params)
     if @service.save
-      redirect_to '/'
+      redirect_to services_path
     else
       redirect_to '/', notice: 'Service not created.'
     end
@@ -29,7 +30,6 @@ class ServicesController < ApplicationController
 
   def edit
   end
-
 
   private
 

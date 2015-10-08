@@ -1,17 +1,51 @@
-<h1>Patient List</h1>
+<div class="container">
+	<h2>Patients</h2>
+	<div class="row">
+		<div class="col-md-5">
+			<table class="table table-striped">
+				<tr>
+					<th class="col-md-2">Name</th>
+					<th class="col-md-2">Phone Number</th>
+					<th class="col-md-1">Options</th>
+				</tr>
+				
+				<% @patients.each do |patient| %>
+				<tr>
+					<td><%= patient.fullname %></td>
+					<td><%= patient.phone %></td>
+					<td> <%= link_to "Edit", edit_patient_path(patient.id) %>, <%= link_to "Delete", patient_path(patient.id), method: :delete %> </td>
+				</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+	<a data-toggle="modal" data-target="#myModalPatient">
+	New Patient
+	</a> <br>
+	<%= link_to 'Back', aunthenticated_root_path %>
+</div>
 
-<% @patients.each do |patient| %>
-<p>
-	<%= patient.fullname %>
-	<%= patient.phone	%>
-	<%= link_to "Edit", edit_patient_path(patient.id) %>
-	<%= link_to "Delete", patient_path(patient.id), method: :delete %>
-</p>
-<% end %>
 
-<%= link_to 'Home', aunthenticated_root_path %>
-<br>
-<%= link_to 'New Patient', new_patient_path, method: :new %> <br>
-<%= link_to 'Back', aunthenticated_root_path %>
-
-
+		<!-- Modal Patients-->
+		<div class="modal fade" id="myModalPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">New Patient</h4>
+					</div>
+					<div class="modal-body">
+						<%= form_for @patient do |p|%>
+						<%= p.label :fullname %>:
+						<%= p.text_field :fullname %><br />
+						<%= p.label :phone %>:
+						<%= p.telephone_field :phone %><br />
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="input" class="btn btn-primary">Save Patient</button>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>

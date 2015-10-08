@@ -9,6 +9,10 @@
 
 	<% if current_user %>
 		<%= render 'helpers/authenticated_header' %>
+			
+		<% else %>
+		 
+		<%= render 'helpers/unauthenticated_header' %>
 	<% end %>
 
 

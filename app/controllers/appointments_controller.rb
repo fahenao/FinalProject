@@ -12,6 +12,10 @@ class AppointmentsController < ApplicationController
   def show
   end
 
+  def appointment_count
+    @number_of_appointments = Appointment.count
+  end
+
   # GET /appointments/new
   def new
   end
@@ -56,10 +60,11 @@ class AppointmentsController < ApplicationController
   def destroy
     @appointment.destroy
     respond_to do |format|
-      format.html { redirect_to '/', notice: 'Appointment was successfully destroyed.' }
+      format.html { redirect_to '/appointments', notice: 'Appointment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

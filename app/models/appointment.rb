@@ -6,6 +6,8 @@ class Appointment < ActiveRecord::Base
 	accepts_nested_attributes_for :appointment_services
 
 	def as_json(options={})
-		super(include: {patient: {only: :fullname}})
+		super(include: {patient: {only: :fullname}, 
+										services: {only: [:name, :description, :price]} 
+										})
 	end
 end

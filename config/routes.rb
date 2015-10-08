@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_scope :user do
+    
     authenticated :user do
       root 'users#profile', as: :aunthenticated_root
     end

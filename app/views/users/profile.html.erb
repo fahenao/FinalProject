@@ -6,13 +6,15 @@
 				<div class="calendar_display">
 					
 					<%= month_calendar events: @appointments do |date, appointment| %>
-					<div class="hidden" id="hidden_date">
+
+					<div class="hidden" id="hidden_date">  	<!--Connector to appointment.js-->
 						<%= date %>					
 					</div>
+					
 					<%= date.strftime("%d") %>
 					<% appointment.each do |a| %>
-					<div>
-						<%= a.comment %>
+					<div>	
+						<%= a.services[0].name %>
 					</div>
 					<% end %>
 					<% end %>
@@ -25,7 +27,6 @@
 				<div class="col-md-4">
 					<div class="creation_buttons"> <!--CLOSGING CREATION BUTTONS -->
 						<div class="col-md-8-fluid">
-
 							<!-- Button trigger modal Appointment -->
 							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAppointment">
 							Create Appointment
@@ -40,35 +41,11 @@
 							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalService">
 							Create Service
 							</button>
-							
-							</div>
-
-							
-						</div> <!--CLOSGING CREATION BUTTONS -->
-						<!--Appointments list -->
-					<div class="col-md-12-left">
-						<% @appointments.each do |a| %>
-							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingOne">
-										<h4 class="panel-title">
-										<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-											<%= @patients.find(a.patient_id).fullname %>, <%= a.start_time.strftime("%B""/""%d") %>
-										</a>
-										<div style="float: right;">
-											<%= link_to "Edit", edit_appointment_path(a.id) %>
-											<%= link_to "Delete", appointment_path(a.id), method: :delete %>
-										</div>
-										</h4>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">
-											<%= a.comment %>
-										</div>
-									</div>
-								</div>
-							</div>
-						<% end %>
+						</div>
+					</div> <!--CLOSGING CREATION BUTTONS -->
+						<!--Day Appointments -->
+					<div class="day_appointments">
+						<!-- CONTENT OF THE APPOINTMENT OF THE DAY YOU CLICK -->
 					</div>
 					<!--ASIDE_PROFILE_END -->
 				</div>
