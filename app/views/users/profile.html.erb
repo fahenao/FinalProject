@@ -2,149 +2,141 @@
 	<div class="container">
 		<div class="row">
 			<!--BEGIN-CALENDAR -->
-			<div class="col-md-8">
-				<div class="calendar_display">
-					
-					<%= month_calendar events: @appointments do |date, appointment| %>
-
-					<div class="hidden" id="hidden_date">  	<!--Connector to appointment.js-->
-						<%= date %>					
-					</div>
+				<div class="col-md-8">
+					<div class="calendar_display">
+						<%= month_calendar events: @appointments do |date, appointment| %>
+						<div class="hidden" id="hidden_date">  	<!--Connector to appointment.js-->
+							<%= date %>
+						</div>
 					
 					<%= date.strftime("%d") %>
-					<% appointment.each do |a| %>
-					<div>	
-						<%= a.services[0].name %>
-					</div>
-					<% end %>
+						<% appointment.each do |a| %>
+							<div>
+								<%= a.services[0].name %>
+							</div>
+						<% end %>
 					<% end %>
 				</div>
 			</div>
-			<!--END-CALENDAR -->
-
-			<!--ASIDE/PROFILE -->
-			<div id="rigth_wrapper">
-				<div class="col-md-4">
-					<div class="creation_buttons"> <!--CLOSGING CREATION BUTTONS -->
-						<div class="col-md-8-fluid">
-							<!-- Button trigger modal Appointment -->
-							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAppointment">
-							Create Appointment
-							</button>
-
-							<!-- Button trigger modal CREATEPATIENTS -->
-							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalPatient">
-							Create Patients
-							</button>
-
-							<!-- Button trigger modal Service -->
-							<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalService">
-							Create Service
-							</button>
-						</div>
-					</div> <!--CLOSGING CREATION BUTTONS -->
-						<!--Day Appointments -->
-					<div class="day_appointments">
-						<!-- CONTENT OF THE APPOINTMENT OF THE DAY YOU CLICK -->
+		<!--END-CALENDAR -->
+		<!--ASIDE/PROFILE -->
+		<div id="rigth_wrapper">
+			<div class="col-md-4">
+				<div class="creation_buttons"> <!--CLOSGING CREATION BUTTONS -->
+					<div class="col-md-8-fluid">
+						<!-- Button trigger modal Appointment -->
+						<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalAppointment">
+						Create Appointment
+						</button>
+						<!-- Button trigger modal CREATEPATIENTS -->
+						<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalPatient">
+						Create Patients
+						</button>
+						<!-- Button trigger modal Service -->
+						<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModalService">
+						Create Service
+						</button>
 					</div>
-					<!--ASIDE_PROFILE_END -->
+				</div> <!--CLOSGING CREATION BUTTONS -->
+				<!--Day Appointments -->
+				<div class="day_appointments">
+					<!-- CONTENT OF THE APPOINTMENT OF THE DAY YOU CLICK -->
 				</div>
+				<!--ASIDE_PROFILE_END -->
 			</div>
 		</div>
 	</div>
 </div>
-		<!-- MODALS/MODALS/MODALS -->
-		<!-- Form for new appointment -->
-		<div class="modal fade" id="myModalAppointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">New Appointment</h4>
-					</div>
-					<div class="modal-body">
-						<% if @services.empty? %>
+</div>
+<!-- MODALS/MODALS/MODALS -->
+<!-- Form for new appointment -->
+<div class="modal fade" id="myModalAppointment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">New Appointment</h4>
+		</div>
+		<div class="modal-body">
+			<% if @services.empty? %>
+			<%= flash[:notice] %>
+			<% else %>
+			<%= render 'helpers/appointment_creator_with_services', appointment: @appointment %> 
+			<% end %>
+		</div>
+	</div>
+</div>
+</div>
 
-							<%= flash[:notice] %>
-
-						<% else %>
-
-							<%= render 'helpers/appointment_creator_with_services', appointment: @appointment %>	
-							
-						<% end %>
-					</div>
-				</div>
-			</div>
+<!-- Modal Patients-->
+<div class="modal fade" id="myModalPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">New Patient</h4>
 		</div>
-		<!-- Modal Patients-->
-		<div class="modal fade" id="myModalPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">New Patient</h4>
-					</div>
-					<div class="modal-body">
-						<%= form_for @patient do |p|%>
-						<%= p.label :fullname %>:
-						<%= p.text_field :fullname %><br />
-						<%= p.label :phone %>:
-						<%= p.telephone_field :phone %><br />
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="input" class="btn btn-primary">Save Patient</button>
-						</div>
-						<% end %>
-					</div>
-				</div>
+		<div class="modal-body">
+			<%= form_for @patient do |p|%>
+			<%= p.label :fullname %>:
+			<%= p.text_field :fullname %><br />
+			<%= p.label :phone %>:
+			<%= p.telephone_field :phone %><br />
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="input" class="btn btn-primary">Save Patient</button>
 			</div>
+			<% end %>
 		</div>
-		<!-- Modal Edit Patients-->
-		<div class="modal fade" id="EditPatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">New Patient</h4>
-					</div>
-					<div class="modal-body">
-						<h1>Editing Patient</h1>
-						<%= form_for @patient do |a|%>
-						<%= a.label :fullname %>:
-						<%= a.text_field :fullname %><br />
-						<%= a.label :phone %>:
-						<%= a.text_field :phone %><br />
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="input" class="btn btn-primary">Update Patient</button>
-						</div>
-						<% end %>
-					</div>
-				</div>
+	</div>
+</div>
+</div>
+<!-- Modal Edit Patients-->
+<div class="modal fade" id="EditPatientModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">New Patient</h4>
+		</div>
+		<div class="modal-body">
+			<h1>Editing Patient</h1>
+			<%= form_for @patient do |a|%>
+			<%= a.label :fullname %>:
+			<%= a.text_field :fullname %><br />
+			<%= a.label :phone %>:
+			<%= a.text_field :phone %><br />
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="input" class="btn btn-primary">Update Patient</button>
 			</div>
+			<% end %>
 		</div>
-		<!-- Modal Services-->
-		<div class="modal fade" id="myModalService" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">New Service</h4>
-					</div>
-					<div class="modal-body">
-						<%= form_for @service do |p|%>
-						<%= p.label :name %>:
-						<%= p.text_field :name %><br />
-						<%= p.label :description %>:
-						<%= p.text_field :description %><br />
-						<%= p.label :price %>:
-						<%= p.number_field :price %><br />
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="input" class="btn btn-primary">Create Service</button>
-						</div>
-						<% end %>
-					</div>
-				</div>
+	</div>
+</div>
+</div>
+<!-- Modal Services-->
+<div class="modal fade" id="myModalService" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="myModalLabel">New Service</h4>
+		</div>
+		<div class="modal-body">
+			<%= form_for @service do |p|%>
+			<%= p.label :name %>:
+			<%= p.text_field :name %><br />
+			<%= p.label :description %>:
+			<%= p.text_field :description %><br />
+			<%= p.label :price %>:
+			<%= p.number_field :price %><br />
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="input" class="btn btn-primary">Create Service</button>
 			</div>
+			<% end %>
 		</div>
+	</div>
+</div>
+</div>

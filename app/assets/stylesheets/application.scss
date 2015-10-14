@@ -3,13 +3,16 @@
 
 html { 
   font-family: Helvetica Neue, Helvetica,Arial,sans-serif; 
+  background-color: #F5FAFA;
+
 }
 
 
 #big_wrapper {
   padding: 3%;
+  background-color: #F5FAFA;
 
-}
+} 
 #rigth_wrapper {
   padding-top: 2%;
 }
@@ -19,14 +22,14 @@ html {
 }
 
 .calendar_display td{
-	border: 1px solid #aaa;
+	border: 1px solid #2F4F4F;
 	border-radius: 4px;
 	height: 100px;
 	width: 100px;
 }
 
 .calendar_display th{
-	border: 1px solid black;
+	border: 1px solid #2F4F4F;
 }
 
 .calendar_display div {
@@ -97,7 +100,7 @@ html {
   .wday-6 {}
 
   .today {
-    background: #579eff;
+    background: #73B1B7 !important;
   }
 
   .past {}
@@ -116,6 +119,9 @@ html {
   .current-month {}
 
   .has-events {
-    background-color: #24B4B6;
+    background-color: #E5D0D0 !important;
+  }
+  .table-striped > tbody > tr:nth-child(odd) > td, .table-striped > tbody > tr:nth-child(odd) > th {
+    background-color: #E0EEEE;
   }
 }

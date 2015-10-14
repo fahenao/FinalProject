@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get 'appointments/:date', to: 'appointments#show'
   end
   
-  devise_for :users
+  devise_for :users 
   resources :appointments
   resources :users
   resources :patients
