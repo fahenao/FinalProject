@@ -9,9 +9,9 @@ class ServicesController < ApplicationController
   def create
     @service = Service.new(service_params)
     if @service.save
-      redirect_to services_path
+      redirect_to '/'
     else
-      redirect_to '/', notice: 'Service not created.'
+      redirect_to services_path, notice: 'Service not created.'
     end
   end
 

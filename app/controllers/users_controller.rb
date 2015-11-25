@@ -10,7 +10,9 @@ class UsersController < ApplicationController
 		@services = Service.all
 		@appointments = current_user.appointments
 		@appointment_service = @appointment.appointment_services.new
-		flash[:notice] = "Create a service first"
+		if @services == 0
+			flash[:notice] = "Create a service first"
+		end
 		render :profile
 	end
 

@@ -64,6 +64,7 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to '/appointments', notice: 'Appointment was successfully destroyed.' }
       format.json { head :no_content }
+      redirect_to '/'
     end
   end
   

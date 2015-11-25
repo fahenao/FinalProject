@@ -12,9 +12,9 @@ class PatientsController < ApplicationController
 	def create
     @patient = Patient.new(patient_params)
     if @patient.save
-      redirect_to patients_path
+      redirect_to '/'
     else
-      redirect_to '/', notice: 'Patient not created.' 
+      redirect_to patients_path, notice: 'Patient not created. Try again.' 
     end
   end
 

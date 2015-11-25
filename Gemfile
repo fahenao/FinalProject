@@ -60,3 +60,4 @@ end
 
   ruby "2.2.1"
 
+gem 'pundit'

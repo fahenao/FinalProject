@@ -21,7 +21,7 @@
             <td><%= appointment.patient.fullname %></td> 
             <td><%= appointment.services[0].name %></td> 
             <td><%= appointment.comment %></td>
-            <td> <%= link_to 'Edit', edit_appointment_path(appointment) %> <%= link_to 'Destroy', appointment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td> <%= link_to 'Edit', edit_appointment_path(appointment) %> <%= link_to 'Destroy', appointment_path(appointment.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </table>  

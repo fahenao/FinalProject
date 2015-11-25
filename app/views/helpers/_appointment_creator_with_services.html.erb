@@ -1,29 +1,47 @@
 <%= form_for :appointment, url: '/appointments' do |a|%>
-	<%= a.label :start_time %>:
-	<%= a.datetime_select :start_time %><br />
-	<%= a.label :end_time %>:
-	<%= a.datetime_select :end_time %><br />
-	<%= a.label :comment %>
-	<%= a.text_area :comment %>
-
-	<h4>Existing patients</h4>   <!-- Display existing patients-->
-	<%= a.select(:patient_id) do %>
-		<% @patients.each do |p| -%>
-			<%= content_tag(:option, p.fullname, value: p.id) %>
-		<% end %>
-	<% end %>
-
-	<h4>Services</h4>  <!-- Display existing services-->
-	<%= fields_for :appointment_service do |f| %>
-		<%= f.select(:service_id) do %>
-			<% @services.each do |s| -%>
-				<%= content_tag(:option, s.name, value: s.id) %>
+<form class="form-control">
+	<div class="form-group">
+		<%= a.label :start_time %>:
+		<%= a.datetime_select :start_time, :class => "form-control" %><br />
+	</div>
+	<div class="form-group">
+		<%= a.label :end_time %>:
+		<%= a.datetime_select :end_time, :class => "form-control" %><br />
+	</div>
+	<div class="form-group">
+		<%= a.label :comment %>
+		<%= a.text_area :comment, :class => "form-control" %>
+	</div>
+	<% if @patients.empty? %>
+		<%= flash[:notice] %>
+	<% else %>
+	<div class="form-group">
+		<%= a.label :Patient %>
+		<%= a.select(:patient_id) do %> <!-- Display existing patients-->
+			<% @patients.each do |p| -%>
+				<%= content_tag(:option, p.fullname, value: p.id) %>
 			<% end %>
 		<% end %>
+	</div>
+	<% end %>
+	<% if @services.empty? %>
+		<%= flash[:notice] %>
+	<% else %>
+		<div class="form-group">
+			<%= fields_for :appointment_service do |f| %> <!-- Display existing services-->
+				<%= f.label :Service %> 
+				<%= f.select(:service_id) do %>
+					<% @services.each do |s| -%>
+						<%= content_tag(:option, s.name, value: s.id) %>
+					<% end %>
+				<% end %>
+			<% end %>
+		</div>
 	<% end %>
 	
 	<div class="modal-footer">
-	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<button type="submit" class="btn btn-primary">Save Appointment</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Save Appointment</button>
 	</div>
+</form>
 <% end %>

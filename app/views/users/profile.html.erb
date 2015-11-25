@@ -8,16 +8,15 @@
 						<div class="hidden" id="hidden_date">  	<!--Connector to appointment.js-->
 							<%= date %>
 						</div>
-					
-					<%= date.strftime("%d") %>
-						<% appointment.each do |a| %>
-							<div>
-								<%= a.services[0].name %>
-							</div>
+						<%= date.strftime("%d") %>
+							<% appointment.each do |a| %>
+								<div>
+									<%= a.services[0].name %>
+								</div>
+							<% end %>
 						<% end %>
-					<% end %>
+					</div>
 				</div>
-			</div>
 		<!--END-CALENDAR -->
 		<!--ASIDE/PROFILE -->
 		<div id="rigth_wrapper">
@@ -58,11 +57,7 @@
 			<h4 class="modal-title" id="myModalLabel">New Appointment</h4>
 		</div>
 		<div class="modal-body">
-			<% if @services.empty? %>
-			<%= flash[:notice] %>
-			<% else %>
 			<%= render 'helpers/appointment_creator_with_services', appointment: @appointment %> 
-			<% end %>
 		</div>
 	</div>
 </div>
@@ -78,14 +73,20 @@
 		</div>
 		<div class="modal-body">
 			<%= form_for @patient do |p|%>
-			<%= p.label :fullname %>:
-			<%= p.text_field :fullname %><br />
-			<%= p.label :phone %>:
-			<%= p.telephone_field :phone %><br />
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="input" class="btn btn-primary">Save Patient</button>
-			</div>
+			<form class="form-control">
+				<div class="form-group">
+					<%= p.label :fullname %>:
+					<%= p.text_field :fullname, :class => "form-control" %><br />
+				</div>
+				<div class="form-group">
+					<%= p.label :phone %>:
+					<%= p.telephone_field :phone, :class => "form-control" %><br />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="input" class="btn btn-primary">Save Patient</button>
+				</div>
+			</form>
 			<% end %>
 		</div>
 	</div>
@@ -102,14 +103,20 @@
 		<div class="modal-body">
 			<h1>Editing Patient</h1>
 			<%= form_for @patient do |a|%>
-			<%= a.label :fullname %>:
-			<%= a.text_field :fullname %><br />
-			<%= a.label :phone %>:
-			<%= a.text_field :phone %><br />
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="input" class="btn btn-primary">Update Patient</button>
-			</div>
+			<form class="form-control">
+				<div class="form-group">
+					<%= a.label :fullname %>:
+					<%= a.text_field :fullname, :class => "form-control" %><br />
+				</div>
+				<div class="form-group">
+					<%= a.label :phone %>:
+					<%= a.text_field :phone, :class => "form-control" %><br />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="input" class="btn btn-primary">Update Patient</button>
+				</div>
+			</form>
 			<% end %>
 		</div>
 	</div>
