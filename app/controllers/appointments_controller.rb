@@ -61,13 +61,8 @@ class AppointmentsController < ApplicationController
   # DELETE /appointments/1.json
   def destroy
     @appointment.destroy
-    respond_to do |format|
-      format.html { redirect_to '/appointments', notice: 'Appointment was successfully destroyed.' }
-      format.json { head :no_content }
-      redirect_to '/'
-    end
+    redirect_to appointments_path
   end
-  
 
   private
     # Use callbacks to share common setup or constraints between actions.
